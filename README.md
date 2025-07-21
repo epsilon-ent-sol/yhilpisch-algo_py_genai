@@ -8,7 +8,7 @@ Online Bootcamp by The Python Quants GmbH
 Dr. Yves J. Hilpisch<br>
 CEO & CPF Program Director
 
-<img src="https://certificate.tpq.io/genai_bootcamp.jpeg" width=350px>
+<img src="https://certificate.tpq.io/genai_bootcamp.png" width=350px>
 
 
 
