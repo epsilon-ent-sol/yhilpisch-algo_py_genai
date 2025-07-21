@@ -53,7 +53,7 @@ https://oanda.com/uk-en/
 
 For Oanda, you should install our Python API wrapper package as follows:
 
-pip install git+https://github.com/yhilpisch/tpqoa.git
+	pip install git+https://github.com/yhilpisch/tpqoa.git
 
 You should have a developer/API account with OpenAI (or an alternative provider):
 
