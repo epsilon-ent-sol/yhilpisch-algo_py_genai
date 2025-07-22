@@ -26,6 +26,13 @@ This is the registration link for the live sessions:
 
 https://attendee.gotowebinar.com/register/2582830228235168862
 
+Quant Platform
+==============
+
+Here you can register for the Quant Platform (to e.g. access recordings later):
+
+https://genai.pqp.io/register
+
 GitHub Repository
 =================
 
