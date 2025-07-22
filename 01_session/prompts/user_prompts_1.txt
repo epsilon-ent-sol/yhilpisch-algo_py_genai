@@ -1,0 +1,1 @@
+Using my credentials stored in oanda.cfg, generate a brief Python script that uses the tpqoa package to connect to the Oanda API and retrieve a few available instruments from the API. Never show/display the credentials themselves as stored in the oanda.cfg file.

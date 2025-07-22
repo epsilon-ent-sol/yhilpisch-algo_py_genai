@@ -1,0 +1,17 @@
+Using my credential file oanda.cfg create a brief Python script that connects to the Oanda API via the wrapper tpqoa.py and retrieves a few instruments available. Never show/display my credentials as stored in oanda.cfg.
+
+Now create a brief script that retrieves from the Oanda API time series data for Nasdaq 100, for 3 months back from today and with 1 hour granularity (mid price). Never show my creds.
+
+File "/Users/yves/Python/envs/algo/lib/python3.12/site-packages/v20/response.py", line 35, in get
+    raise ResponseNoField(self, field)
+v20.errors.ResponseNoField: 400 response for GET https://api-fxpractice.oanda.com:443/v3/instruments/NAS100_USD/candles?price=M&granularity=H1&from=2025-04-22T14%3A44%3A15.586694%2B00%3A00.000000000Z&to=2025-04-25T14%3A44%3A15.586694%2B00%3A00.000000000Z does not have field 'candles' (contains 'errorMessage')
+
+Now implement a web-based application with streamlit which allows the selection of an Oanda instrument, the start date (default:-3 months), the end date (default: today), the granularity (default: D), and as price mid price. The data shall be visualized with plotly (candlesticks). Avoid the use of pyarrow in any instance.
+
+The parameter selection is not placed in the sidebar. Everything is in the main pane. Correct this.
+
+Make the display of the data table optional (radio button). Add another figure which compares the closing price of the main instrument to a maximum of two other instruments. Put it under the original figure.
+
+Turning on/off the data table does not work. Neither does the generation of the price comparison chart work.
+
+Add the option to display the price comparison in normalized fashion, i.e. to 1. Also via radio button.
