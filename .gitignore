@@ -3,6 +3,9 @@
 *.cfg
 _build/
 .DS_Store
+creds.py
+oanda.cfg
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
