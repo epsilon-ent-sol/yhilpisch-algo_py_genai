@@ -14,6 +14,8 @@ from dateutil.relativedelta import relativedelta
 from tpqoa import tpqoa
 from dateutil.parser import parse
 import argparse
+from dateutil.parser import parse
+import argparse
 
 
 class MeanRevBacktester:
@@ -30,6 +32,7 @@ class MeanRevBacktester:
         self.initial_equity = equity
         self.risk_pct = risk_pct
         self.leverage = leverage
+        self.plot = False
         # parse or default end/start (default: end=now UTC, start=3mo back)
         if end is None:
             self.end = datetime.now(timezone.utc)
@@ -120,8 +123,8 @@ class MeanRevBacktester:
                         trades.append({
                             'entry_time': time, 'exit_time': t,
                             'direction': 'long', 'entry': entry,
-                            'exit': r['c'], 'units': units,
-                            'pnl': pnl, 'equity': equity
+                            'exit': r['c'], 'stop': stop, 'target': target,
+                            'units': units, 'pnl': pnl, 'equity': equity
                         })
                         i = j
                         open_trades -= 1
@@ -144,8 +147,8 @@ class MeanRevBacktester:
                         trades.append({
                             'entry_time': time, 'exit_time': t,
                             'direction': 'short', 'entry': entry,
-                            'exit': r['c'], 'units': units,
-                            'pnl': pnl, 'equity': equity
+                            'exit': r['c'], 'stop': stop, 'target': target,
+                            'units': units, 'pnl': pnl, 'equity': equity
                         })
                         i = j
                         open_trades -= 1
@@ -153,25 +156,104 @@ class MeanRevBacktester:
             i += 1
         return trades
 
-    def summarize(self, trades):
-        df = pd.DataFrame(trades)
-        wins = df[df['pnl'] > 0]
-        losses = df[df['pnl'] <= 0]
-        net = df['pnl'].sum()
-        total = len(df)
+    def summarize(self, df, trades):
+        tr_df = pd.DataFrame(trades)
+        wins = tr_df[tr_df['pnl'] > 0]
+        losses = tr_df[tr_df['pnl'] <= 0]
+        net = tr_df['pnl'].sum()
+        total = len(tr_df)
         stats = {
             'Total Trades': total,
             'Win Rate (%)': len(wins) / total * 100 if total else 0,
             'Avg Win': wins['pnl'].mean() if not wins.empty else 0,
             'Avg Loss': losses['pnl'].mean() if not losses.empty else 0,
             'Profit Factor': wins['pnl'].sum() / abs(losses['pnl'].sum()) if losses['pnl'].sum() else np.nan,
-            'Sharpe Ratio': (df['pnl'] / self.initial_equity).mean() / (df['pnl'] / self.initial_equity).std() * np.sqrt(len(df)) if len(df) > 1 else np.nan,
-            'Max Drawdown (%)': (df['equity'] - df['equity'].cummax()).min() / df['equity'].cummax().max() * 100,
+            'Sharpe Ratio': (tr_df['pnl'] / self.initial_equity).mean() / (tr_df['pnl'] / self.initial_equity).std() * np.sqrt(len(tr_df)) if len(tr_df) > 1 else np.nan,
+            'Max Drawdown (%)': (tr_df['equity'] - tr_df['equity'].cummax()).min() / tr_df['equity'].cummax().max() * 100,
             'Net PnL': net
         }
         out = pd.DataFrame([stats])
         print('\nBacktest Results:')
         print(out.to_string(index=False, float_format='%.2f'))
+        # plot if requested
+        if self.plot:
+            self.plot_trades(df, trades)
+
+    def plot_trades(self, df, trades):
+        """Plot price series with trade markers, stops, and targets."""
+        import plotly.graph_objects as go
+
+        from plotly.subplots import make_subplots
+
+        # create two-row subplot: price (with candlesticks) and equity curve
+        fig = make_subplots(rows=2, cols=1,
+                            shared_xaxes=True,
+                            vertical_spacing=0.02,
+                            row_heights=[0.7, 0.3])
+        # plot OHLC candlesticks in top row
+        fig.add_trace(go.Candlestick(
+            x=df.index,
+            open=df['o'], high=df['h'], low=df['l'], close=df['c'],
+            name='OHLC'
+        ), row=1, col=1)
+        shown = {
+            'entry_long': False, 'entry_short': False,
+            'exit': False, 'stop': False, 'target': False
+        }
+        for tr in trades:
+            et, xt = tr['entry_time'], tr['exit_time']
+            eprice, xprice = tr['entry'], tr['exit']
+            stop, target = tr['stop'], tr['target']
+            direction = tr['direction']
+            # entry marker
+            entry_key = 'entry_long' if direction == 'long' else 'entry_short'
+            entry_name = 'Entry (Long)' if direction == 'long' else 'Entry (Short)'
+            fig.add_trace(go.Scatter(
+                x=[et], y=[eprice], mode='markers',
+                marker_symbol='triangle-up' if direction == 'long' else 'triangle-down',
+                marker_color='green' if direction == 'long' else 'red',
+                marker_size=12, name=entry_name,
+                showlegend=not shown[entry_key]
+            ))
+            shown[entry_key] = True
+            fig.add_trace(go.Scatter(
+                x=[xt], y=[xprice], mode='markers',
+                marker_symbol='x', marker_color='black', marker_size=12,
+                name='Exit', showlegend=not shown['exit']
+            ))
+            shown['exit'] = True
+            fig.add_trace(go.Scatter(
+                x=[et, xt], y=[stop, stop], mode='lines',
+                line=dict(color='red', dash='dash'),
+                name='Stop', showlegend=not shown['stop']
+            ))
+            shown['stop'] = True
+            fig.add_trace(go.Scatter(
+                x=[et, xt], y=[target, target], mode='lines',
+                line=dict(color='green', dash='dash'),
+                name='Target', showlegend=not shown['target']
+            ))
+            shown['target'] = True
+        # add equity curve to bottom row, anchored at start and end
+        idx0 = df.index[0]
+        idxN = df.index[-1]
+        eq_times = [idx0] + [tr['exit_time'] for tr in trades] + [idxN]
+        last_eq  = trades[-1]['equity']
+        eq_vals  = [self.initial_equity] + [tr['equity'] for tr in trades] + [last_eq]
+        fig.add_trace(go.Scatter(
+            x=eq_times, y=eq_vals, mode='lines',
+            line=dict(color='blue', shape='hv'), name='Equity'
+        ), row=2, col=1)
+        # layout updates
+        fig.update_layout(
+            title=f'Trades and Equity Curve for {self.instrument}',
+            xaxis=dict(rangeslider=dict(visible=False)),
+            hovermode='x unified'
+        )
+        # autorange y-axes on zoom
+        fig.update_yaxes(autorange=True, row=1, col=1)
+        fig.update_yaxes(autorange=True, row=2, col=1)
+        fig.show()
 
     def run(self):
         df = self.fetch_data()
@@ -180,7 +262,9 @@ class MeanRevBacktester:
         if not trades:
             print('No trades executed.')
             sys.exit(0)
-        self.summarize(trades)
+        self.summarize(data, trades)
+        if self.plot:
+            self.plot_trades(data, trades)
 
 
 def parse_args():
@@ -198,6 +282,8 @@ def parse_args():
                    help='start datetime (ISO8601)')
     p.add_argument('--end',         default=None,
                    help='end datetime (ISO8601)')
+    p.add_argument('--plot',        action='store_true',
+                   help='show trade plot')
     return p.parse_args()
 
 if __name__ == '__main__':
@@ -213,4 +299,6 @@ if __name__ == '__main__':
         start=args.start,
         end=args.end
     )
+    bt.plot = args.plot
+    bt.plot = args.plot
     bt.run()
