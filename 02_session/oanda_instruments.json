@@ -1,0 +1,502 @@
+{
+  "FX": [
+    {
+      "displayName": "AUD/CAD",
+      "instrument": "AUD_CAD"
+    },
+    {
+      "displayName": "AUD/CHF",
+      "instrument": "AUD_CHF"
+    },
+    {
+      "displayName": "AUD/HKD",
+      "instrument": "AUD_HKD"
+    },
+    {
+      "displayName": "AUD/JPY",
+      "instrument": "AUD_JPY"
+    },
+    {
+      "displayName": "AUD/NZD",
+      "instrument": "AUD_NZD"
+    },
+    {
+      "displayName": "AUD/SGD",
+      "instrument": "AUD_SGD"
+    },
+    {
+      "displayName": "AUD/USD",
+      "instrument": "AUD_USD"
+    },
+    {
+      "displayName": "CAD/CHF",
+      "instrument": "CAD_CHF"
+    },
+    {
+      "displayName": "CAD/HKD",
+      "instrument": "CAD_HKD"
+    },
+    {
+      "displayName": "CAD/JPY",
+      "instrument": "CAD_JPY"
+    },
+    {
+      "displayName": "CAD/SGD",
+      "instrument": "CAD_SGD"
+    },
+    {
+      "displayName": "CHF/HKD",
+      "instrument": "CHF_HKD"
+    },
+    {
+      "displayName": "CHF/JPY",
+      "instrument": "CHF_JPY"
+    },
+    {
+      "displayName": "CHF/ZAR",
+      "instrument": "CHF_ZAR"
+    },
+    {
+      "displayName": "EUR/AUD",
+      "instrument": "EUR_AUD"
+    },
+    {
+      "displayName": "EUR/CAD",
+      "instrument": "EUR_CAD"
+    },
+    {
+      "displayName": "EUR/CHF",
+      "instrument": "EUR_CHF"
+    },
+    {
+      "displayName": "EUR/CZK",
+      "instrument": "EUR_CZK"
+    },
+    {
+      "displayName": "EUR/DKK",
+      "instrument": "EUR_DKK"
+    },
+    {
+      "displayName": "EUR/GBP",
+      "instrument": "EUR_GBP"
+    },
+    {
+      "displayName": "EUR/HKD",
+      "instrument": "EUR_HKD"
+    },
+    {
+      "displayName": "EUR/HUF",
+      "instrument": "EUR_HUF"
+    },
+    {
+      "displayName": "EUR/JPY",
+      "instrument": "EUR_JPY"
+    },
+    {
+      "displayName": "EUR/NOK",
+      "instrument": "EUR_NOK"
+    },
+    {
+      "displayName": "EUR/NZD",
+      "instrument": "EUR_NZD"
+    },
+    {
+      "displayName": "EUR/PLN",
+      "instrument": "EUR_PLN"
+    },
+    {
+      "displayName": "EUR/SEK",
+      "instrument": "EUR_SEK"
+    },
+    {
+      "displayName": "EUR/SGD",
+      "instrument": "EUR_SGD"
+    },
+    {
+      "displayName": "EUR/TRY",
+      "instrument": "EUR_TRY"
+    },
+    {
+      "displayName": "EUR/USD",
+      "instrument": "EUR_USD"
+    },
+    {
+      "displayName": "EUR/ZAR",
+      "instrument": "EUR_ZAR"
+    },
+    {
+      "displayName": "GBP/AUD",
+      "instrument": "GBP_AUD"
+    },
+    {
+      "displayName": "GBP/CAD",
+      "instrument": "GBP_CAD"
+    },
+    {
+      "displayName": "GBP/CHF",
+      "instrument": "GBP_CHF"
+    },
+    {
+      "displayName": "GBP/HKD",
+      "instrument": "GBP_HKD"
+    },
+    {
+      "displayName": "GBP/JPY",
+      "instrument": "GBP_JPY"
+    },
+    {
+      "displayName": "GBP/NZD",
+      "instrument": "GBP_NZD"
+    },
+    {
+      "displayName": "GBP/PLN",
+      "instrument": "GBP_PLN"
+    },
+    {
+      "displayName": "GBP/SGD",
+      "instrument": "GBP_SGD"
+    },
+    {
+      "displayName": "GBP/USD",
+      "instrument": "GBP_USD"
+    },
+    {
+      "displayName": "GBP/ZAR",
+      "instrument": "GBP_ZAR"
+    },
+    {
+      "displayName": "HKD/JPY",
+      "instrument": "HKD_JPY"
+    },
+    {
+      "displayName": "NZD/CAD",
+      "instrument": "NZD_CAD"
+    },
+    {
+      "displayName": "NZD/CHF",
+      "instrument": "NZD_CHF"
+    },
+    {
+      "displayName": "NZD/HKD",
+      "instrument": "NZD_HKD"
+    },
+    {
+      "displayName": "NZD/JPY",
+      "instrument": "NZD_JPY"
+    },
+    {
+      "displayName": "NZD/SGD",
+      "instrument": "NZD_SGD"
+    },
+    {
+      "displayName": "NZD/USD",
+      "instrument": "NZD_USD"
+    },
+    {
+      "displayName": "SGD/CHF",
+      "instrument": "SGD_CHF"
+    },
+    {
+      "displayName": "SGD/JPY",
+      "instrument": "SGD_JPY"
+    },
+    {
+      "displayName": "TRY/JPY",
+      "instrument": "TRY_JPY"
+    },
+    {
+      "displayName": "USD/CAD",
+      "instrument": "USD_CAD"
+    },
+    {
+      "displayName": "USD/CHF",
+      "instrument": "USD_CHF"
+    },
+    {
+      "displayName": "USD/CNH",
+      "instrument": "USD_CNH"
+    },
+    {
+      "displayName": "USD/CZK",
+      "instrument": "USD_CZK"
+    },
+    {
+      "displayName": "USD/DKK",
+      "instrument": "USD_DKK"
+    },
+    {
+      "displayName": "USD/HKD",
+      "instrument": "USD_HKD"
+    },
+    {
+      "displayName": "USD/HUF",
+      "instrument": "USD_HUF"
+    },
+    {
+      "displayName": "USD/JPY",
+      "instrument": "USD_JPY"
+    },
+    {
+      "displayName": "USD/MXN",
+      "instrument": "USD_MXN"
+    },
+    {
+      "displayName": "USD/NOK",
+      "instrument": "USD_NOK"
+    },
+    {
+      "displayName": "USD/PLN",
+      "instrument": "USD_PLN"
+    },
+    {
+      "displayName": "USD/SEK",
+      "instrument": "USD_SEK"
+    },
+    {
+      "displayName": "USD/SGD",
+      "instrument": "USD_SGD"
+    },
+    {
+      "displayName": "USD/THB",
+      "instrument": "USD_THB"
+    },
+    {
+      "displayName": "USD/TRY",
+      "instrument": "USD_TRY"
+    },
+    {
+      "displayName": "USD/ZAR",
+      "instrument": "USD_ZAR"
+    },
+    {
+      "displayName": "ZAR/JPY",
+      "instrument": "ZAR_JPY"
+    }
+  ],
+  "Indices": [
+    {
+      "displayName": "Australia 200",
+      "instrument": "AU200_AUD"
+    },
+    {
+      "displayName": "China A50",
+      "instrument": "CN50_USD"
+    },
+    {
+      "displayName": "China H Shares",
+      "instrument": "CHINAH_HKD"
+    },
+    {
+      "displayName": "Europe 50",
+      "instrument": "EU50_EUR"
+    },
+    {
+      "displayName": "France 40",
+      "instrument": "FR40_EUR"
+    },
+    {
+      "displayName": "Germany 30",
+      "instrument": "DE30_EUR"
+    },
+    {
+      "displayName": "Hong Kong 33",
+      "instrument": "HK33_HKD"
+    },
+    {
+      "displayName": "Japan 225",
+      "instrument": "JP225_USD"
+    },
+    {
+      "displayName": "Japan 225 (JPY)",
+      "instrument": "JP225Y_JPY"
+    },
+    {
+      "displayName": "Netherlands 25",
+      "instrument": "NL25_EUR"
+    },
+    {
+      "displayName": "Singapore 30",
+      "instrument": "SG30_SGD"
+    },
+    {
+      "displayName": "Spain 35",
+      "instrument": "ESPIX_EUR"
+    },
+    {
+      "displayName": "Switzerland 20",
+      "instrument": "CH20_CHF"
+    },
+    {
+      "displayName": "UK 100",
+      "instrument": "UK100_GBP"
+    },
+    {
+      "displayName": "US Nas 100",
+      "instrument": "NAS100_USD"
+    },
+    {
+      "displayName": "US Russ 2000",
+      "instrument": "US2000_USD"
+    },
+    {
+      "displayName": "US SPX 500",
+      "instrument": "SPX500_USD"
+    },
+    {
+      "displayName": "US Wall St 30",
+      "instrument": "US30_USD"
+    }
+  ],
+  "Commodities": [
+    {
+      "displayName": "Brent Crude Oil",
+      "instrument": "BCO_USD"
+    },
+    {
+      "displayName": "Copper",
+      "instrument": "XCU_USD"
+    },
+    {
+      "displayName": "Corn",
+      "instrument": "CORN_USD"
+    },
+    {
+      "displayName": "Gold",
+      "instrument": "XAU_USD"
+    },
+    {
+      "displayName": "Gold/AUD",
+      "instrument": "XAU_AUD"
+    },
+    {
+      "displayName": "Gold/CAD",
+      "instrument": "XAU_CAD"
+    },
+    {
+      "displayName": "Gold/CHF",
+      "instrument": "XAU_CHF"
+    },
+    {
+      "displayName": "Gold/EUR",
+      "instrument": "XAU_EUR"
+    },
+    {
+      "displayName": "Gold/GBP",
+      "instrument": "XAU_GBP"
+    },
+    {
+      "displayName": "Gold/HKD",
+      "instrument": "XAU_HKD"
+    },
+    {
+      "displayName": "Gold/JPY",
+      "instrument": "XAU_JPY"
+    },
+    {
+      "displayName": "Gold/NZD",
+      "instrument": "XAU_NZD"
+    },
+    {
+      "displayName": "Gold/SGD",
+      "instrument": "XAU_SGD"
+    },
+    {
+      "displayName": "Gold/Silver",
+      "instrument": "XAU_XAG"
+    },
+    {
+      "displayName": "Natural Gas",
+      "instrument": "NATGAS_USD"
+    },
+    {
+      "displayName": "Palladium",
+      "instrument": "XPD_USD"
+    },
+    {
+      "displayName": "Platinum",
+      "instrument": "XPT_USD"
+    },
+    {
+      "displayName": "Silver",
+      "instrument": "XAG_USD"
+    },
+    {
+      "displayName": "Silver/AUD",
+      "instrument": "XAG_AUD"
+    },
+    {
+      "displayName": "Silver/CAD",
+      "instrument": "XAG_CAD"
+    },
+    {
+      "displayName": "Silver/CHF",
+      "instrument": "XAG_CHF"
+    },
+    {
+      "displayName": "Silver/EUR",
+      "instrument": "XAG_EUR"
+    },
+    {
+      "displayName": "Silver/GBP",
+      "instrument": "XAG_GBP"
+    },
+    {
+      "displayName": "Silver/HKD",
+      "instrument": "XAG_HKD"
+    },
+    {
+      "displayName": "Silver/JPY",
+      "instrument": "XAG_JPY"
+    },
+    {
+      "displayName": "Silver/NZD",
+      "instrument": "XAG_NZD"
+    },
+    {
+      "displayName": "Silver/SGD",
+      "instrument": "XAG_SGD"
+    },
+    {
+      "displayName": "Soybeans",
+      "instrument": "SOYBN_USD"
+    },
+    {
+      "displayName": "Sugar",
+      "instrument": "SUGAR_USD"
+    },
+    {
+      "displayName": "West Texas Oil",
+      "instrument": "WTICO_USD"
+    },
+    {
+      "displayName": "Wheat",
+      "instrument": "WHEAT_USD"
+    }
+  ],
+  "Bonds": [
+    {
+      "displayName": "Bund",
+      "instrument": "DE10YB_EUR"
+    },
+    {
+      "displayName": "UK 10Y Gilt",
+      "instrument": "UK10YB_GBP"
+    },
+    {
+      "displayName": "US 10Y T-Note",
+      "instrument": "USB10Y_USD"
+    },
+    {
+      "displayName": "US 2Y T-Note",
+      "instrument": "USB02Y_USD"
+    },
+    {
+      "displayName": "US 5Y T-Note",
+      "instrument": "USB05Y_USD"
+    },
+    {
+      "displayName": "US T-Bond",
+      "instrument": "USB30Y_USD"
+    }
+  ]
+}
