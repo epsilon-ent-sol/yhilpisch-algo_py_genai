@@ -1,0 +1,36 @@
+Using my creds in oanda.cfg (never show or display them) and the API Python wrapper for Oanda found in tpqoa.py, implement a minimal test script that retrieves all the instruments available for my account.
+
+Now analyze carefully the strategy in mr_technical_strategy.md. Implement a detailed and accurate backtest of that strategy based on financial data from Oanda (instrument DE30_EUR, 1 month back in time from today, granularity 10 minutes, mid price). Use tpqoa and my creds to this end. Provide detailed statistics for the backtest in a nicely formatted way (table format).
+
+Refactore the code to be a Python class. And: (algo) studio:02_session yves$ python backtest_mr.py
+/Users/yves/Dropbox/Program/genai/git/02_session/backtest_mr.py:164: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  end = datetime.utcnow()
+
+Also make the data interval start/end arguments (default end=today, start=3 months back), also risk_pct (now 0.01, leave as default). And make all the parameters arguments for the Pytchon script.
+
+No matter what parameters I use, the script always reports only three trades. Make sure that the strategy logic is correctly implemented.
+
+Incorporate leverage into the backtest (by default 10). Add it also as an argument.
+
+Different values for leverage don't give different results:
+
+(algo) studio:02_session yves$ python backtest_mr.py --leverage 5
+
+Backtest Results:
+ Total Trades  Win Rate (%)  Avg Win  Avg Loss  Profit Factor  Sharpe Ratio  Max Drawdown (%)  Net PnL
+            4         50.00  6498.00  -8671.25           0.75         -0.22            -11.41 -4346.50
+(algo) studio:02_session yves$ python backtest_mr.py --leverage 20
+
+Backtest Results:
+ Total Trades  Win Rate (%)  Avg Win  Avg Loss  Profit Factor  Sharpe Ratio  Max Drawdown (%)  Net PnL
+            4         50.00  6498.00  -8671.25           0.75         -0.22            -11.41 -4346.50
+
+Add a plotly visualization for the backtested strategy that shows entries, exits, stop losses, take profits, etc. clearly in the chart. Use colors that make it easy to read the chart. In the legend only put general symbol and explanations (e.g. what symbol represents an entry signal/trade). The plot shall only be created if --plot True.
+
+For the price chart, plot the OHLC candlesticks instead of just the prices. In the legend differentiate between Entry long and Entry short.
+
+Zooming in does not properly anymore, the y axis does not adjust to the zooming. Also add a sub-plot with the equity curve.
+
+Check again the equity curve. It should start in the beginning with the initial equity and should go to the very end of the period.
+
+The equity curve should be plotted as a step function/curve and not via dots that are linerly connected.
