@@ -13,3 +13,7 @@ https://www.perplexity.ai/search/provide-detailed-guidelines-ab-PhGTOH9pQZiG0X0S
 ### Mean-Reversion Algorithmic Trading Strategy
 
 https://www.perplexity.ai/search/describe-an-algorithmic-tradin-teAyjyRvRPSywdoFyfBg1Q
+
+### Oanda Average Trading Costs (Spread)
+
+https://www.perplexity.ai/search/what-is-the-average-bid-ask-sp-V8svb0_aTPOrlIZqBZJRlw
