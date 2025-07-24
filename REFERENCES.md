@@ -21,3 +21,7 @@ https://www.perplexity.ai/search/what-is-the-average-bid-ask-sp-V8svb0_aTPOrlIZq
 ### Oanda Maximum Leverage by Category
 
 https://www.perplexity.ai/search/what-are-allowed-maximum-lever-Yrkl6G1tQ2mH.OW5pEe17w
+
+### "Winning" S10 Strategy Combination
+
+python backtest_mr_para.py --bb-window 10 --bb-std-dev 2 --rsi-period 14 --ema-period 10 --atr-period 14 --plot --start 2025-07-20 --granularity S10

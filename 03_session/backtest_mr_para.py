@@ -14,6 +14,8 @@ from dateutil.relativedelta import relativedelta
 from tpqoa import tpqoa
 from dateutil.parser import parse
 import argparse
+import os
+import json
 from dateutil.parser import parse
 import argparse
 
@@ -44,7 +46,8 @@ class MeanRevBacktester:
                  momentum_window=3,
                  momentum_multiplier=2,
                  cutoff_hours=1,
-                 max_concurrent_trades=3):
+                 max_concurrent_trades=3,
+                 use_spreads=True):
         self.oanda = tpqoa(config)
         self.instrument = instrument
         self.granularity = granularity
@@ -68,6 +71,26 @@ class MeanRevBacktester:
         self.cutoff_hours = cutoff_hours
         self.max_concurrent_trades = max_concurrent_trades
         self.plot = False
+        self.use_spreads = use_spreads
+        # load instrument->category map for spread lookup
+        inst_file = os.path.join(os.path.dirname(__file__), 'oanda_instruments.json')
+        try:
+            with open(inst_file) as f:
+                inst_data = json.load(f)
+        except Exception:
+            inst_data = {}
+        self._instr_category = {
+            inst['instrument']: cat
+            for cat, lst in inst_data.items() for inst in lst
+        }
+        # simplified typical spreads (%) per category (midpoint of range)
+        spread_pct = {
+            'FX': (0.007 + 0.02) / 2,
+            'Indices': (0.00001 + 0.00003) / 2,
+            'Commodities': (0.00001 + 0.0001) / 2,
+        }
+        # convert to fraction of price
+        self._spread_frac = {cat: pct / 100 for cat, pct in spread_pct.items()}
         # parse or default end/start (default: end=now UTC, start=3mo back)
         if end is None:
             # default end at UTC midnight of today's date
@@ -160,6 +183,11 @@ class MeanRevBacktester:
                     if (r['c'] <= stop or r['c'] >= target
                         or 45 <= r['rsi'] <= 55 or t >= cutoff):
                         pnl = (r['c'] - entry) * units
+                        if self.use_spreads:
+                            cat = self._instr_category.get(self.instrument)
+                            spread = self._spread_frac.get(cat, 0.0)
+                            cost = spread * (entry + r['c']) * units
+                            pnl -= cost
                         equity += pnl
                         trades.append({
                             'entry_time': time, 'exit_time': t,
@@ -184,6 +212,11 @@ class MeanRevBacktester:
                     if (r['c'] >= stop or r['c'] <= target
                         or 45 <= r['rsi'] <= 55 or t >= cutoff):
                         pnl = (entry - r['c']) * units
+                        if self.use_spreads:
+                            cat = self._instr_category.get(self.instrument)
+                            spread = self._spread_frac.get(cat, 0.0)
+                            cost = spread * (entry + r['c']) * units
+                            pnl -= cost
                         equity += pnl
                         trades.append({
                             'entry_time': time, 'exit_time': t,
@@ -325,6 +358,8 @@ def parse_args():
                    help='end datetime (ISO8601)')
     p.add_argument('--plot',        action='store_true',
                    help='show trade plot')
+    p.add_argument('--no-spreads',  action='store_true',
+                   help='disable transaction-cost spreads')
     # strategy parameter arguments
     p.add_argument('--bb-window',           type=int,   default=20,
                    help='window for Bollinger Bands')
@@ -381,7 +416,8 @@ if __name__ == '__main__':
         momentum_window=args.momentum_window,
         momentum_multiplier=args.momentum_multiplier,
         cutoff_hours=args.cutoff_hours,
-        max_concurrent_trades=args.max_concurrent_trades
+        max_concurrent_trades=args.max_concurrent_trades,
+        use_spreads=not args.no_spreads
     )
     bt.plot = args.plot
     bt.run()
