@@ -8,11 +8,19 @@ Fixed strategy parameters:
 """
 
 import argparse
+import logging
 
 import numpy as np
 import pandas as pd
 
 from tpqoa import tpqoa
+
+# Set up simple trade logging
+logging.basicConfig(
+    filename='trade.log',
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s'
+)
 
 
 def main():
@@ -80,19 +88,23 @@ def main():
                         api.create_order(args.instrument, 1)
                         position = 1
                         print(f"{last.name} LONG @ {price:.2f}")
+                        logging.info(f"ENTRY LONG time={last.name} price={price:.2f}")
                     elif price > last['ub'] and last['rsi'] > 70:
                         api.create_order(args.instrument, -1)
                         position = -1
                         print(f"{last.name} SHORT @ {price:.2f}")
+                        logging.info(f"ENTRY SHORT time={last.name} price={price:.2f}")
                 # exit logic: simple mean reversion to middle band
                 elif position == 1 and price >= last['mb']:
                     api.create_order(args.instrument, -1)
                     position = 0
                     print(f"{last.name} EXIT LONG @ {price:.2f}")
+                    logging.info(f"EXIT LONG time={last.name} price={price:.2f}")
                 elif position == -1 and price <= last['mb']:
                     api.create_order(args.instrument, 1)
                     position = 0
                     print(f"{last.name} EXIT SHORT @ {price:.2f}")
+                    logging.info(f"EXIT SHORT time={last.name} price={price:.2f}")
 
     # start streaming ticks
     print("Collecting 3-second bars...", end='\n')
